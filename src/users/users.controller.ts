@@ -9,11 +9,11 @@ export class UsersController {
 
   //create user
   @Post('/createUser')
-  // async create(@Body() user: UserDTO){
-  //   return this.usersService.create(user);
-  // }
-  create(@Body() user: UserDTO): Promise<User> {
-    return this.usersService.create(user);
+  async create(@Body() userDTO: UserDTO){
+    const user = new User();
+    user.name = userDTO.name;
+    user.email = userDTO.email;
+    return await this.usersService.create(user);
   }
 
   //get users

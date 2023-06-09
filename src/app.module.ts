@@ -5,8 +5,10 @@ import { AppService } from './app.service';
 import { AuthController } from './auth/auth.controller';
 import { AuthService } from './auth/auth.service';
 import { UsersModule } from './users/users.module';
+import { UsersController } from './users/users.controller';
 import { User } from './users/user.entity';
 import { UserRepository } from './users/user.repository';
+import { UserService } from './users/users.service';
 
 @Module({
   imports: [

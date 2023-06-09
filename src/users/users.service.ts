@@ -13,16 +13,12 @@ export class UserService {
     private userRepository: UserRepository,
   ) {}
 
-  // async create(user: UserDTO) {
-  //   return await this.userRepository.save(user);
-  // }
-
-  async getusers() {
-    return await this.userRepository.find();
+  async create(user: User) {
+    return await this.userRepository.saveUser(user);
   }
 
-  create(user: UserDTO): Promise<User> {
-    return this.userRepository.save(user);
+  async getusers() {
+    return await this.userRepository.findAll();
   }
 
 }
