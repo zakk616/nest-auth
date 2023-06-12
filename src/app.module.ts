@@ -5,10 +5,13 @@ import { AppService } from './app.service';
 import { AuthController } from './auth/auth.controller';
 import { AuthService } from './auth/auth.service';
 import { UsersModule } from './users/users.module';
-import { UsersController } from './users/users.controller';
 import { User } from './users/user.entity';
-import { UserRepository } from './users/user.repository';
 import { UserService } from './users/users.service';
+import { UsersController } from './users/users.controller';
+import { UserRepository } from './users/user.repository';
+import { JwtService } from '@nestjs/jwt';
+import { AuthGuard } from './auth/auth.guard';
+
 
 @Module({
   imports: [
@@ -21,12 +24,11 @@ import { UserService } from './users/users.service';
       database: 'postgres',
       entities:  [__dirname + '/**/*.entity.{js,ts}'],
       synchronize: true,
-      
     }),
     TypeOrmModule.forFeature([User]),
-    UsersModule,
+    UsersModule
   ],
-  controllers: [AppController, AuthController],
-  providers: [AppService, AuthService],
+  controllers: [AppController, AuthController, UsersController],
+  providers: [AppService, AuthService, UserService, UserRepository, JwtService],
 })
 export class AppModule {}
