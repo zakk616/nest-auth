@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './user.entity';
 import { UserRepository } from './user.repository';
+import { isEmail } from 'class-validator';
 
 @Injectable()
 export class UserService {
@@ -19,17 +20,14 @@ export class UserService {
     return await this.userRepository.findAll();
   }
 
-  async findUser(username: string, password: string): Promise<User> {
-    return await this.userRepository.findOne({
-      where: {
-        name: username,
-        password: password
-      }
-    })
-}
+  async getuserByEmail(email: string): Promise<User> {
+    return await this.userRepository.getuserByEmail(email);
+  }
 
-
-
-  
+  async updateLoginStatus(email: string, refreshToken: any) {
+    return await this.userRepository.update(email, {
+      refresh_token: refreshToken
+    });
+  }
 
 }

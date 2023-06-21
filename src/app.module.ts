@@ -10,7 +10,6 @@ import { UserService } from './users/users.service';
 import { UsersController } from './users/users.controller';
 import { UserRepository } from './users/user.repository';
 import { JwtService } from '@nestjs/jwt';
-import { AuthGuard } from './auth/auth.guard';
 
 
 @Module({
