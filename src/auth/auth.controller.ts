@@ -1,5 +1,5 @@
 
-import { Controller, Get, Post, Body, SetMetadata, UseGuards, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body, SetMetadata, UseGuards, Param, Req } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth.guard';
 
@@ -8,13 +8,14 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Post('login')
-  async login(@Body() credentials: { username: string, password: string }) {
-    return this.authService.login(credentials.username,credentials.password);
+  async login(@Body() credentials: { email: string, password: string }) {
+    return this.authService.login(credentials.email,credentials.password);
   }
 
   @UseGuards(AuthGuard)
-  @Post('logout/:token')
-  async logout(@Param('token') token: string): Promise<void> {
+  @Post('logout')
+  async logout(@Req() request: any){
+    const [type, token] = request.headers.authorization?.split(' ') ?? [];
     await this.authService.logout(token);
   }
 }

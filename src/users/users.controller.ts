@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, SetMetadata, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, SetMetadata, UseGuards, Req } from '@nestjs/common';
 import { UserService } from './users.service';
 import { User } from './user.entity';
 import { CreateUserDTO } from 'src/dtos/user.dto';
@@ -13,8 +13,6 @@ export const Public = () => SetMetadata(IS_PUBLIC_KEY, true);
 export class UsersController {
   constructor(private readonly usersService: UserService) {}
   
-
-  //create user
   @Post('/createUser')
   async create(@Body() userDTO: CreateUserDTO){
     const user = new User();
