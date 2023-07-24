@@ -24,10 +24,10 @@ export class UserService {
     return await this.userRepository.getuserByEmail(email);
   }
 
-  async updateLoginStatus(email: string, refreshToken: any) {
-    return await this.userRepository.update(email, {
-      refresh_token: refreshToken
-    });
-  }
+  // async updateLoginStatus(email: string, refreshToken: any) {
+  //   return await this.userRepository.update(email, {
+  //     refresh_token: refreshToken
+  //   });
+  // }
 
 }

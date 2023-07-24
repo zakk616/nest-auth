@@ -4,6 +4,7 @@ import { User } from './user.entity';
 import { CreateUserDTO } from 'src/dtos/user.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
 import * as bcrypt from 'bcrypt';
+import { ApiBearerAuth, ApiBody, ApiHeader } from '@nestjs/swagger';
 
 
 export const IS_PUBLIC_KEY = 'isPublic';
@@ -14,6 +15,9 @@ export class UsersController {
   constructor(private readonly usersService: UserService) {}
   
   @Post('/createUser')
+  @ApiBody({
+    type: CreateUserDTO,
+  })
   async create(@Body() userDTO: CreateUserDTO){
     const user = new User();
     user.name = userDTO.name;
@@ -22,10 +26,13 @@ export class UsersController {
     return await this.usersService.create(user);
   }
 
+
   @UseGuards(AuthGuard)
   //@Public()
   @Get('/getUsers')
-  async getUsers(){
+  @ApiBearerAuth()
+  async getUsers(@Req() request: any){
+    console.log(request.headers.authorization?.split(' ') ?? []);
     return this.usersService.getusers();
   }
 

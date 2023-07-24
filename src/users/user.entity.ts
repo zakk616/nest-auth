@@ -14,8 +14,4 @@ export class User extends BaseEntity {
 
     @Column()
     password: string;
-
-    @Column({ nullable: true })
-    @Exclude()
-    refresh_token?: string;
 }
