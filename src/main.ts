@@ -10,8 +10,12 @@ async function bootstrap() {
     .setDescription('Portfolio 1')
     .setVersion('1.0')
     .addBearerAuth(
-      { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' },
-      'access-token',
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+      },
+      'JWT', // This should match the name of your AuthGuard
     )
     .build();
 

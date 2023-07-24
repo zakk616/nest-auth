@@ -4,13 +4,14 @@ import { User } from './user.entity';
 import { CreateUserDTO } from 'src/dtos/user.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
 import * as bcrypt from 'bcrypt';
-import { ApiBearerAuth, ApiBody, ApiHeader } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiHeader, ApiTags } from '@nestjs/swagger';
 
 
 export const IS_PUBLIC_KEY = 'isPublic';
 export const Public = () => SetMetadata(IS_PUBLIC_KEY, true);
 
 @Controller('users')
+@ApiTags('users')
 export class UsersController {
   constructor(private readonly usersService: UserService) {}
   
@@ -27,10 +28,10 @@ export class UsersController {
   }
 
 
+  @Get('/getUsers')
   @UseGuards(AuthGuard)
   //@Public()
-  @Get('/getUsers')
-  @ApiBearerAuth()
+  @ApiBearerAuth('JWT')
   async getUsers(@Req() request: any){
     console.log(request.headers.authorization?.split(' ') ?? []);
     return this.usersService.getusers();
